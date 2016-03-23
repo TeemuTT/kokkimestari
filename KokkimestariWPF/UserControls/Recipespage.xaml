@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Top">
             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Omat reseptit" HorizontalAlignment="Center" FontSize="14.667"/>
-            <ListBox x:Name="listBox" Height="100" Width="350" Margin="20,0" FontSize="14.667"/>
+            <ListBox x:Name="listBox" ItemsSource="{Binding}" DisplayMemberPath="Name" Height="100" Width="350" Margin="20,0" FontSize="14.667" SelectionChanged="listBox_SelectionChanged"/>
         </StackPanel>
     </Grid>
 </UserControl>

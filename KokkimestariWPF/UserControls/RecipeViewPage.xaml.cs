@@ -1,11 +1,13 @@
 ﻿/*
 * Copyright (C) JAMK/IT/Teemu Tuomela
-* This file is part of the Kokkimestri project.
+* This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
+* Modified: 23/03/2016
 * Author: Teemu Tuomela
 */
 
+using KokkimestariWPF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +30,10 @@ namespace KokkimestariWPF.UserControls
     /// </summary>
     public partial class RecipeViewPage : UserControl
     {
-        public RecipeViewPage()
+        public RecipeViewPage(Recipe recipe)
         {
             InitializeComponent();
+            txtRecipeName.Text = recipe.Name;
         }
     }
 }

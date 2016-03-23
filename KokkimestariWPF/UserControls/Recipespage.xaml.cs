@@ -1,11 +1,13 @@
 ﻿/*
 * Copyright (C) JAMK/IT/Teemu Tuomela
-* This file is part of the Kokkimestri project.
+* This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
+* Modified: 23/03/2016
 * Author: Teemu Tuomela
 */
 
+using KokkimestariWPF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +30,18 @@ namespace KokkimestariWPF.UserControls
     /// </summary>
     public partial class Recipespage : UserControl
     {
-        public Recipespage()
+        private ContentControl contentControl;
+
+        public Recipespage(ContentControl contentControl)
         {
             InitializeComponent();
+            this.contentControl = contentControl;
+            listBox.ItemsSource = AppLogic.GetAllRecipes();
+        }
+
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            contentControl.Content = new RecipeViewPage((Recipe)listBox.SelectedItem);
         }
     }
 }

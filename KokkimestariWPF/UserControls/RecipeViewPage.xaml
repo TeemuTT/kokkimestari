@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Top">
             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Tarkastellaan reseptiä:" HorizontalAlignment="Center" FontSize="14.667"/>
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="null" HorizontalAlignment="Center" FontSize="14.667"/>
+            <TextBlock x:Name="txtRecipeName" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="14.667"/>
         </StackPanel>
     </Grid>
 </UserControl>

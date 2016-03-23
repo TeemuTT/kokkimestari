@@ -1,11 +1,14 @@
 ﻿/*
 * Copyright (C) JAMK/IT/Teemu Tuomela
-* This file is part of the Kokkimestri project.
+* This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
+* Modified: 23/03/2016
 * Author: Teemu Tuomela
 */
 
+using KokkimestariWPF.DataAccess;
+using KokkimestariWPF.Logic;
 using KokkimestariWPF.UserControls;
 using System;
 using System.Collections.Generic;
@@ -31,13 +34,14 @@ namespace KokkimestariWPF
     {
         public MainWindow()
         {
+            AppEngine.InitializeDatabase();
             InitializeComponent();
             contentControl.Content = new Homepage();
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new Recipespage();
+            contentControl.Content = new Recipespage(contentControl);
         }
 
         private void button4_Click(object sender, RoutedEventArgs e)
