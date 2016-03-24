@@ -76,6 +76,9 @@
     </ApplicationDefinition>
     <Compile Include="DataAccess\AppEngine.cs" />
     <Compile Include="Logic\AppLogic.cs" />
+    <Compile Include="UserControls\ListsPage.xaml.cs">
+      <DependentUpon>ListsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NewRecipepage.xaml.cs">
       <DependentUpon>NewRecipepage.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\ListsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\NewRecipepage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

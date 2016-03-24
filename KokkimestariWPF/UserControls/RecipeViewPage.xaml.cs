@@ -34,6 +34,22 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
             grid.DataContext = recipe;
+            cbLists.ItemsSource = AppLogic.GetFavouriteLists();
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var recipe = (Recipe)grid.DataContext;
+            var list = (FavouriteList)cbLists.SelectedItem;
+            try
+            {
+                AppLogic.AddRecipeToList(recipe, list);
+                MessageBox.Show("Lisätty");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -61,6 +61,86 @@ namespace KokkimestariWPF.Logic
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Returns a random recipe for the day.
+        /// </summary>
+        /// <returns></returns>
+        public static Recipe GetRecipeOfTheDay()
+        {
+            // TODO: Add logic to fetch only daily.
+            return AppEngine.GetRandomRecipe();
+        }
+
+        /// <summary>
+        /// Returns all favourite lists.
+        /// </summary>
+        /// <returns></returns>
+        public static List<FavouriteList> GetFavouriteLists()
+        {
+            try
+            {
+                return AppEngine.GetFavouriteLists();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new favourite list.
+        /// </summary>
+        /// <param name="list"></param>
+        public static bool AddFavouriteList(FavouriteList list)
+        {
+            try
+            {
+                AppEngine.AddFavouriteList(list);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Add recipe to a favourite list.
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static bool AddRecipeToList(Recipe recipe, FavouriteList list)
+        {
+            try
+            {
+                int affected = AppEngine.AddRecipeToList(recipe.ID, list.ID);
+                if (affected > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Get recipes belonging to a specific list.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static List<Recipe> GetRecipesOfList(FavouriteList list)
+        {
+            try
+            {
+                return AppEngine.GetRecipesOfList(list.ID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
     public class Recipe
@@ -121,6 +201,13 @@ namespace KokkimestariWPF.Logic
         public FavouriteList()
         {
 
+        }
+
+        public FavouriteList(int id, string name, string desc)
+        {
+            ID = id;
+            Name = name;
+            Description = desc;
         }
     }
 }

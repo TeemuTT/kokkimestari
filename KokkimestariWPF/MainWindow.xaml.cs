@@ -63,5 +63,10 @@ namespace KokkimestariWPF
         {
             contentControl.Content = new Homepage();
         }
+
+        private void button5_Click(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new ListsPage(contentControl);
+        }
     }
 }

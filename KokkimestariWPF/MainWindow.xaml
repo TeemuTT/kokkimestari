@@ -19,6 +19,7 @@
             <Button x:Name="button" Content="Aloitus" Click="button_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
             <Button x:Name="button1" Content="Omat reseptit" Click="button1_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
             <Button x:Name="button4" Content="Luo resepti" Click="button4_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
+            <Button x:Name="button5" Content="Suosikit" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White" Click="button5_Click"/>
             <Button x:Name="button2" Content="Reseptihaku" Click="button2_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
             <Button x:Name="button3" Content="About" Click="button3_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
         </StackPanel>
