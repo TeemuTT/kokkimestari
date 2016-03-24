@@ -8,13 +8,15 @@
 */
 
 using KokkimestariWPF.Logic;
-using SQLite;
+//using SQLite;
 using System;
+using System.Data.SQLite;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace KokkimestariWPF.DataAccess
 {
@@ -26,7 +28,9 @@ namespace KokkimestariWPF.DataAccess
         /// <returns></returns>
         private static SQLiteConnection MakeConnection()
         {
-            var db = new SQLiteConnection("database.sqlite");
+            string cs = KokkimestariWPF.Properties.Settings.Default.DBString;
+            var db = new SQLiteConnection(cs);
+            db.Open();
             return db;
         }
 
@@ -38,36 +42,17 @@ namespace KokkimestariWPF.DataAccess
             if (!File.Exists("database.sqlite"))
             {
                 var db = MakeConnection();
-                db.Execute("create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);");
-                db.Execute("create table Difficulty (ID integer primary key not null, Name text not null);");
-                db.Execute("create table Ingredient (ID integer primary key not null, Name text not null);");
-                db.Execute("create table FavouriteList (ID integer primary key not null, Name text not null, Description text null);");
-                db.Execute("create table FavouriteList_Recipe (ID integer primary key not null, FavouriteList_id integer not null, Recipe_id integer not null);");
-                db.Execute("create table Recipe_Ingredient (ID integer primary key not null, Recipe_id integer not null, Ingredient_id integer not null, Amount text not null);");
-                db.Execute("insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('Tosi vaikea');");
+                var cmd = db.CreateCommand();
+                cmd.CommandText = @"create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);
+create table Difficulty (ID integer primary key not null, Name text not null);
+create table Ingredient (ID integer primary key not null, Name text not null);
+create table FavouriteList(ID integer primary key not null, Name text not null, Description text null);
+create table FavouriteList_Recipe (ID integer primary key not null, FavouriteList_id integer not null, Recipe_id integer not null);
+create table Recipe_Ingredient (ID integer primary key not null, Recipe_id integer not null, Ingredient_id integer not null, Amount text not null);
+insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('Tosi vaikea');
+";
+                cmd.ExecuteNonQuery();
                 db.Close();
-            }
-        }
-
-        /// <summary>
-        /// Gets a random recipe from the database.
-        /// </summary>
-        /// <returns></returns>
-        public static Recipe GetRandomRecipe()
-        {
-            try
-            {
-                using (var db = MakeConnection())
-                {
-                    var r = new Random();
-                    var recipes = db.Table<Recipe>();
-                    var recipe = recipes.ElementAt(r.Next(1, recipes.Count()));
-                    return recipe;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 
@@ -75,14 +60,18 @@ namespace KokkimestariWPF.DataAccess
         /// Fetches all recipes from the database.
         /// </summary>
         /// <returns></returns>
-        public static List<Recipe> GetAllRecipes()
+        public static DataTable GetAllRecipes()
         {
             try
             {
                 using (var db = MakeConnection())
                 {
-                    var recipes = db.Table<Recipe>().ToList<Recipe>();
-                    return recipes;
+                    string sql = "select * from Recipe";
+                    var cmd = new SQLiteCommand(sql, db);
+                    var da = new SQLiteDataAdapter(cmd);
+                    var dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
             }
             catch (Exception ex)
@@ -108,13 +97,13 @@ namespace KokkimestariWPF.DataAccess
                 using (var db = MakeConnection())
                 {
                     string sql = "insert into Recipe (Name, Instructions, Ingredients, Difficulty, Time, PicturePath) values (@Name, @Instructions, @Ingredients, @Difficulty, @Time, @PicturePath)";
-                    var cmd = db.CreateCommand(sql);
-                    cmd.Bind("@Name", name);
-                    cmd.Bind("@Instructions", instr);
-                    cmd.Bind("@Ingredients", ingred);
-                    cmd.Bind("@Difficulty", diff);
-                    cmd.Bind("@Time", time);
-                    cmd.Bind("@PicturePath", picpath);
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Instructions", instr);
+                    cmd.Parameters.AddWithValue("@Ingredients", ingred);
+                    cmd.Parameters.AddWithValue("@Difficulty", diff);
+                    cmd.Parameters.AddWithValue("@Time", time);
+                    cmd.Parameters.AddWithValue("@PicturePath", picpath);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
@@ -143,14 +132,14 @@ namespace KokkimestariWPF.DataAccess
                 using (var db = MakeConnection())
                 {
                     string sql = "update Recipe set Name = @Name, Instructions = @Instructions, Ingredients = @Ingredients, Difficulty = @Difficulty, Time = @Time, PicturePath = @PicturePath where ID = @ID";
-                    var cmd = db.CreateCommand(sql);
-                    cmd.Bind("@Name", name);
-                    cmd.Bind("@Instructions", instr);
-                    cmd.Bind("@Ingredients", ingred);
-                    cmd.Bind("@Difficulty", diff);
-                    cmd.Bind("@Time", time);
-                    cmd.Bind("@PicturePath", picpath);
-                    cmd.Bind("@ID", id);
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Instructions", instr);
+                    cmd.Parameters.AddWithValue("@Ingredients", ingred);
+                    cmd.Parameters.AddWithValue("@Difficulty", diff);
+                    cmd.Parameters.AddWithValue("@Time", time);
+                    cmd.Parameters.AddWithValue("@PicturePath", picpath);
+                    cmd.Parameters.AddWithValue("@ID", id);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
@@ -172,7 +161,10 @@ namespace KokkimestariWPF.DataAccess
             {
                 using (var db = MakeConnection())
                 {
-                    int affected = db.Delete(id);
+                    string sql = "delete from Recipe where ID = @ID";
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@ID", id);
+                    int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
             }
@@ -195,9 +187,9 @@ namespace KokkimestariWPF.DataAccess
                 using (var db = MakeConnection())
                 {
                     string sql = "insert into FavouriteList_Recipe (FavouriteList_id, Recipe_id) values (@listID, @recipeID)";
-                    var cmd = db.CreateCommand(sql);
-                    cmd.Bind("@listID", listID);
-                    cmd.Bind("@recipeID", recipeID);
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@listID", listID);
+                    cmd.Parameters.AddWithValue("@recipeID", recipeID);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
@@ -221,9 +213,9 @@ namespace KokkimestariWPF.DataAccess
                 using (var db = MakeConnection())
                 {
                     string sql = "delete from FavouriteList_Recipe where FavouriteList_id = @listID and Recipe_id = @recipeID";
-                    var cmd = db.CreateCommand(sql);
-                    cmd.Bind("@listID", listID);
-                    cmd.Bind("@recipeID", recipeID);
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@listID", listID);
+                    cmd.Parameters.AddWithValue("@recipeID", recipeID);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
@@ -238,14 +230,18 @@ namespace KokkimestariWPF.DataAccess
         /// Return all Difficulties from database.
         /// </summary>
         /// <returns></returns>
-        public static List<Difficulty> GetDifficulties()
+        public static DataTable GetDifficulties()
         {
             try
             {
                 using (var db = MakeConnection())
                 {
-                    var difficulties = db.Table<Difficulty>().ToList();
-                    return difficulties;
+                    string sql = "select * from Difficulty";
+                    var cmd = new SQLiteCommand(sql, db);
+                    var da = new SQLiteDataAdapter(cmd);
+                    var dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
             }
             catch (Exception ex)
@@ -258,14 +254,18 @@ namespace KokkimestariWPF.DataAccess
         /// Gets all favourite lists from the database.
         /// </summary>
         /// <returns></returns>
-        public static List<FavouriteList> GetFavouriteLists()
+        public static DataTable GetFavouriteLists()
         {
             try
             {
                 using (var db = MakeConnection())
                 {
-                    var lists = db.Table<FavouriteList>().ToList();
-                    return lists;
+                    string sql = "select * from FavouriteList";
+                    var cmd = new SQLiteCommand(sql, db);
+                    var da = new SQLiteDataAdapter(cmd);
+                    var dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
             }
             catch (Exception ex)
@@ -286,9 +286,9 @@ namespace KokkimestariWPF.DataAccess
                 using (var db = MakeConnection())
                 {
                     string sql = "insert into FavouriteList (Name, Description) values (@Name, @Desc)";
-                    var cmd = db.CreateCommand(sql);
-                    cmd.Bind("@Name", list.Name);
-                    cmd.Bind("@Desc", list.Description);
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@Name", list.Name);
+                    cmd.Parameters.AddWithValue("@Desc", list.Description);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }
@@ -304,15 +304,19 @@ namespace KokkimestariWPF.DataAccess
         /// </summary>
         /// <param name="listID"></param>
         /// <returns></returns>
-        public static List<Recipe> GetRecipesOfList(int listID)
+        public static DataTable GetRecipesOfList(int listID)
         {
             try
             {
                 using (var db = MakeConnection())
                 {
-
-                    List<Recipe> selectedRecipes = new List<Recipe>();
-                    return selectedRecipes;
+                    string sql = "select * from Recipe where ID in (select Recipe_id from FavouriteList_Recipe where FavouriteList_id = @id);";
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@id", listID);
+                    var da = new SQLiteDataAdapter(cmd);
+                    var dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
             }
             catch (Exception ex)

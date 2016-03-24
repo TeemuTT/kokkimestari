@@ -10,6 +10,7 @@
 using KokkimestariWPF.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,20 @@ namespace KokkimestariWPF.Logic
         /// <returns></returns>
         public static List<Recipe> GetAllRecipes()
         {
-            return AppEngine.GetAllRecipes();
+            List<Recipe> recipes = new List<Recipe>();
+            var dt = AppEngine.GetAllRecipes();
+            foreach (DataRow row in dt.Rows)
+            {
+                var r = new Recipe(Convert.ToInt32(row["ID"]));
+                r.Name = row["Name"].ToString();
+                r.Ingredients = row["Ingredients"].ToString();
+                r.Instructions = row["Ingredients"].ToString();
+                r.Difficulty = Convert.ToInt32(row["Difficulty"]);
+                r.Time = Convert.ToInt32(row["Time"]);
+                r.PicturePath = row["PicturePath"].ToString();
+                recipes.Add(r);
+            }
+            return recipes;
         }
 
         /// <summary>
@@ -54,7 +68,16 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                return AppEngine.GetDifficulties();
+                List<Difficulty> diffs = new List<Difficulty>();
+                var dt = AppEngine.GetDifficulties();
+                foreach (DataRow row in dt.Rows)
+                {
+                    diffs.Add(new Difficulty(
+                        Convert.ToInt32(row["ID"]),
+                        row["Name"].ToString()
+                        ));
+                }
+                return diffs;
             }
             catch (Exception ex)
             {
@@ -69,7 +92,8 @@ namespace KokkimestariWPF.Logic
         public static Recipe GetRecipeOfTheDay()
         {
             // TODO: Add logic to fetch only daily.
-            return AppEngine.GetRandomRecipe();
+            var r = new Random();
+            return GetAllRecipes().ElementAt(r.Next(1, GetAllRecipes().Count));
         }
 
         /// <summary>
@@ -80,7 +104,17 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                return AppEngine.GetFavouriteLists();
+                List<FavouriteList> lists = new List<FavouriteList>();
+                var dt = AppEngine.GetFavouriteLists();
+                foreach (DataRow row in dt.Rows)
+                {
+                    lists.Add(new FavouriteList(
+                        Convert.ToInt32(row["ID"]),
+                        row["Name"].ToString(),
+                        row["Description"].ToString()
+                        ));
+                }
+                return lists;
             }
             catch (Exception ex)
             {
@@ -134,7 +168,21 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                return AppEngine.GetRecipesOfList(list.ID);
+                List<Recipe> recipes = new List<Recipe>();
+                var dt = AppEngine.GetRecipesOfList(list.ID);
+                foreach (DataRow row in dt.Rows)
+                {
+                    var r = new Recipe(Convert.ToInt32(row["ID"]));
+                    r.Name = row["Name"].ToString();
+                    r.Ingredients = row["Ingredients"].ToString();
+                    r.Instructions = row["Ingredients"].ToString();
+                    r.Difficulty = Convert.ToInt32(row["Difficulty"]);
+                    r.Time = Convert.ToInt32(row["Time"]);
+                    r.PicturePath = row["PicturePath"].ToString();
+                    recipes.Add(r);
+                }
+                return recipes;
+
             }
             catch (Exception ex)
             {
@@ -156,6 +204,11 @@ namespace KokkimestariWPF.Logic
         public Recipe()
         {
 
+        }
+
+        public Recipe(int id)
+        {
+            ID = id;
         }
 
         public Recipe(int id, string name, string instr, string ingred, int diff, int time, string picpath)
@@ -186,9 +239,10 @@ namespace KokkimestariWPF.Logic
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public Difficulty()
+        public Difficulty(int id, string name)
         {
-
+            ID = id;
+            Name = name;
         }
     }
 
@@ -197,11 +251,6 @@ namespace KokkimestariWPF.Logic
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-
-        public FavouriteList()
-        {
-
-        }
 
         public FavouriteList(int id, string name, string desc)
         {
