@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 23/03/2016
+* Modified: 24/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -33,7 +33,7 @@ namespace KokkimestariWPF.UserControls
         public RecipeViewPage(Recipe recipe)
         {
             InitializeComponent();
-            txtRecipeName.Text = recipe.Name;
+            grid.DataContext = recipe;
         }
     }
 }

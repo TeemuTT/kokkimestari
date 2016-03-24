@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KokkimestariWPF.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="480" d:DesignWidth="640">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -13,16 +13,23 @@
         </Grid.ColumnDefinitions>
         <StackPanel Margin="5,0,5,0">
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Nimi" FontSize="14.667"/>
-            <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap"/>
+            <TextBox x:Name="txtName" Height="23" TextWrapping="Wrap"/>
             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Ohjeet" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="textBox1" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <TextBox x:Name="txtInstr" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="Aika" Margin="0,10,0,0" FontSize="14.667"/>
+            <TextBox x:Name="txtTime" Height="23" TextWrapping="Wrap"/>
+            <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="Vaikeusaste" Margin="0,10,0,0" FontSize="14.667"/>
+            <ComboBox x:Name="cbDiff" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="5,0,5,0">
             <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="Kuva" FontSize="14.667"/>
-            <TextBox x:Name="textBox2" Height="23" TextWrapping="Wrap"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnChoosePic" Content="Valitse kuva" HorizontalAlignment="Right" Click="btnChoosePic_Click"/>
+                <TextBox x:Name="txtPicPath" Height="23" TextWrapping="Wrap"/>
+            </StackPanel>
             <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="Ainekset" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="textBox3" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
-            <Button x:Name="button" Content="Tallenna" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14.667"/>
+            <TextBox x:Name="txtIngredients" Height="150" TextWrapping="Wrap" AcceptsReturn="True"/>
+            <Button x:Name="btnSave" Content="Tallenna" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14.667" Click="btnSave_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>
