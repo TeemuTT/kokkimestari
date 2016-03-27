@@ -10,6 +10,8 @@
         <StackPanel VerticalAlignment="Top">
             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Omat reseptit" HorizontalAlignment="Center" FontSize="14.667"/>
             <ListBox x:Name="listBox" ItemsSource="{Binding}" DisplayMemberPath="Name" Height="250" Width="350" Margin="20,0" FontSize="14.667" SelectionChanged="listBox_SelectionChanged"/>
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Hae nimellä" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+            <TextBox x:Name="textBox" Height="23" TextWrapping="Wrap" HorizontalAlignment="Center" Width="350" TextChanged="textBox_TextChanged"/>
         </StackPanel>
     </Grid>
 </UserControl>

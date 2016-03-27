@@ -25,6 +25,7 @@
         <StackPanel Grid.Column="1" Margin="5,0">
             <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Listan reseptit" HorizontalAlignment="Center" Margin="0,58,0,0" FontSize="14.667"/>
             <ListBox x:Name="lbRecipes" Height="200" SelectionChanged="lbRecipes_SelectionChanged" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
+            <Button x:Name="button1" Content="Poista lista" Margin="0,20,0,0" Click="button1_Click"/>
         </StackPanel>
 
     </Grid>

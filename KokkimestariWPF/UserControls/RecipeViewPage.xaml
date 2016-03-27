@@ -13,7 +13,9 @@
         </Grid.ColumnDefinitions>
         <StackPanel Margin="5,0,0,0">
             <TextBlock x:Name="txtName" TextWrapping="Wrap" Text="{Binding Path=Name}" HorizontalAlignment="Center" FontSize="18.667"/>
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Ainekset" FontSize="14.667" Margin="0,30,0,0"/>
+            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="{Binding Path=Timestr, StringFormat='Aika: {0}'}" Margin="0,5,0,0"/>
+            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="{Binding Path=Difficultystr, StringFormat='Vaikeusaste: {0}'}"/>
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Ainekset" FontSize="14.667" Margin="0,25,0,0"/>
 
             <ScrollViewer Margin="0,10,0,0">
                 <TextBlock x:Name="txtIngredients" TextWrapping="Wrap" Text="{Binding Path=Ingredients}" FontSize="14.667" Margin="0,10,0,0"/>
@@ -24,6 +26,7 @@
             <ScrollViewer Margin="0,10,0,5">
                 <TextBlock x:Name="txtInstructions" TextWrapping="Wrap" Text="{Binding Path=Instructions}" FontSize="14.667" ScrollViewer.CanContentScroll="True"/>
             </ScrollViewer>
+            
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="0,0,5,0">
             <Image x:Name="image" Height="200" Source="{Binding Path=PicturePath}"/>
@@ -33,6 +36,8 @@
                 <Button x:Name="btnAdd" Content="Lisää" Width="75" FontSize="14.667" Click="btnAdd_Click"/>
             </StackPanel>
             <Button x:Name="button" Content="Muokkaa" HorizontalAlignment="Center" Click="button_Click"/>
+            <Button x:Name="button1" Content="Poista" HorizontalAlignment="Center" Click="button1_Click"/>
+            <Button x:Name="button2" Content="Tulosta" HorizontalAlignment="Center" Click="button2_Click"/>
 
 
         </StackPanel>

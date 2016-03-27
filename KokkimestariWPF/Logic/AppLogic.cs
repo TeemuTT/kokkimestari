@@ -80,6 +80,25 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
+        /// Deletes a recipe.
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
+        public static bool DeleteRecipe(Recipe recipe)
+        {
+            try
+            {
+                int affected = AppEngine.DeleteRecipe(recipe.ID);
+                if (affected > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Return all difficulties.
         /// </summary>
         /// <returns></returns>
@@ -116,7 +135,7 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
-        /// Returns all favourite lists.
+        /// Returns all FavouriteLists.
         /// </summary>
         /// <returns></returns>
         public static List<FavouriteList> GetFavouriteLists()
@@ -142,15 +161,15 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
-        /// Creates a new favourite list.
+        /// Creates a new FavouriteList.
         /// </summary>
         /// <param name="list"></param>
         public static bool AddFavouriteList(FavouriteList list)
         {
             try
             {
-                AppEngine.AddFavouriteList(list);
-                return true;
+                if (AppEngine.AddFavouriteList(list.Name, list.Description) > 0) return true;
+                else return false;
             }
             catch (Exception ex)
             {
@@ -159,7 +178,25 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
-        /// Add recipe to a favourite list.
+        /// Deletes a FavouriteList.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static bool DeleteFavouriteList(FavouriteList list)
+        {
+            try
+            {
+                if (AppEngine.DeleteFavouriteList(list.ID) > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Add recipe to a FavouriteList.
         /// </summary>
         /// <param name="recipe"></param>
         /// <param name="list"></param>
@@ -179,7 +216,7 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
-        /// Get recipes belonging to a specific list.
+        /// Get recipes belonging to a specific FavouriteList.
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
@@ -208,6 +245,32 @@ namespace KokkimestariWPF.Logic
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Convert seconds to hours:minutes:seconds.
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public static string SecondsToHMS(int seconds)
+        {
+            TimeSpan t = TimeSpan.FromSeconds(seconds);
+            return t.ToString(@"hh\:mm\:ss");
+        }
+
+        /// <summary>
+        /// Returns difficulty_id as string.
+        /// </summary>
+        /// <param name="difficulty"></param>
+        /// <returns></returns>
+        public static string DifficultyToStr(int difficulty)
+        {
+            var difficulties = GetDifficulties();
+            foreach (var d in difficulties)
+            {
+                if (d.ID == difficulty) return d.Name;
+            }
+            return "Helppo";
+        }
     }
 
     public class Recipe
@@ -216,8 +279,28 @@ namespace KokkimestariWPF.Logic
         public string Name { get; set; }
         public string Instructions { get; set; }
         public string Ingredients { get; set; }
-        public int Difficulty { get; set; }
+        private int difficulty;
+        public int Difficulty
+        {
+            get
+            {
+                return difficulty;
+            }
+            set
+            {
+                difficulty = value;
+                Difficultystr = AppLogic.DifficultyToStr(value);
+            }
+        }
+        public string Difficultystr { get; set; }
         public int Time { get; set; }
+        public string Timestr
+        {
+            get
+            {
+                return AppLogic.SecondsToHMS(Time);
+            }
+        }
         public string PicturePath { get; set; }
 
         public Recipe()

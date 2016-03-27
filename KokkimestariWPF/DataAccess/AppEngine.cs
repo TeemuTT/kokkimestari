@@ -8,7 +8,6 @@
 */
 
 using KokkimestariWPF.Logic;
-//using SQLite;
 using System;
 using System.Data.SQLite;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace KokkimestariWPF.DataAccess
         /// <returns></returns>
         private static SQLiteConnection MakeConnection()
         {
-            string cs = KokkimestariWPF.Properties.Settings.Default.DBString;
+            string cs = Properties.Settings.Default.DBString;
             var db = new SQLiteConnection(cs);
             db.Open();
             return db;
@@ -41,9 +40,10 @@ namespace KokkimestariWPF.DataAccess
         {
             if (!File.Exists("database.sqlite"))
             {
-                var db = MakeConnection();
-                var cmd = db.CreateCommand();
-                cmd.CommandText = @"create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);
+                using (var db = MakeConnection())
+                {
+                    var cmd = db.CreateCommand();
+                    cmd.CommandText = @"create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);
 create table Difficulty (ID integer primary key not null, Name text not null);
 create table Ingredient (ID integer primary key not null, Name text not null);
 create table FavouriteList(ID integer primary key not null, Name text not null, Description text null);
@@ -51,8 +51,8 @@ create table FavouriteList_Recipe (ID integer primary key not null, FavouriteLis
 create table Recipe_Ingredient (ID integer primary key not null, Recipe_id integer not null, Ingredient_id integer not null, Amount text not null);
 insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('Tosi vaikea');
 ";
-                cmd.ExecuteNonQuery();
-                db.Close();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
@@ -279,7 +279,7 @@ insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public static int AddFavouriteList(FavouriteList list)
+        public static int AddFavouriteList(string name, string desc)
         {
             try
             {
@@ -287,8 +287,32 @@ insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('
                 {
                     string sql = "insert into FavouriteList (Name, Description) values (@Name, @Desc)";
                     var cmd = new SQLiteCommand(sql, db);
-                    cmd.Parameters.AddWithValue("@Name", list.Name);
-                    cmd.Parameters.AddWithValue("@Desc", list.Description);
+                    cmd.Parameters.AddWithValue("@Name", name);
+                    cmd.Parameters.AddWithValue("@Desc", desc);
+                    int affected = cmd.ExecuteNonQuery();
+                    return affected;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Deletes a FavouriteList from the database.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static int DeleteFavouriteList(int id)
+        {
+            try
+            {
+                using (var db = MakeConnection())
+                {
+                    string sql = "delete from FavouriteList where ID = @ID";
+                    var cmd = new SQLiteCommand(sql, db);
+                    cmd.Parameters.AddWithValue("@ID", id);
                     int affected = cmd.ExecuteNonQuery();
                     return affected;
                 }

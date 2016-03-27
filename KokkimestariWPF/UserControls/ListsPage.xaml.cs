@@ -64,6 +64,7 @@ namespace KokkimestariWPF.UserControls
 
         private void lbLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lbLists.SelectedItem == null) return; // This happens when we delete a list.
             try
             {
                 lbRecipes.DataContext = AppLogic.GetRecipesOfList((FavouriteList)lbLists.SelectedItem);
@@ -77,6 +78,21 @@ namespace KokkimestariWPF.UserControls
         private void lbRecipes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             contentControl.Content = new RecipeViewPage(contentControl, (Recipe)lbRecipes.SelectedItem);
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(MessageBox.Show("Poistetaanko lista?", "Vahvista poisto", MessageBoxButton.YesNo) == MessageBoxResult.Yes)) return;
+            try
+            {
+                AppLogic.DeleteFavouriteList((FavouriteList)lbLists.SelectedItem);
+                lbLists.DataContext = AppLogic.GetFavouriteLists();
+                MessageBox.Show("Lista poistettu");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

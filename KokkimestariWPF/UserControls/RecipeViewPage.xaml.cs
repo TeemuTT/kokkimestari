@@ -59,5 +59,47 @@ namespace KokkimestariWPF.UserControls
         {
             cc.Content = new NewRecipepage((Recipe)grid.DataContext);
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (!(MessageBox.Show("Poistetaanko resepti?", "Vahvista poisto", MessageBoxButton.YesNo) == MessageBoxResult.Yes)) return;
+            try
+            {
+                AppLogic.DeleteRecipe((Recipe)grid.DataContext);
+                MessageBox.Show("Resepti poistettu");
+                cc.Content = new Recipespage(cc);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            var r = (Recipe)grid.DataContext;
+            PrintDialog pd = new PrintDialog();
+            var doc = new FlowDocument();
+            var p = new Paragraph(new Run("Kokkimestari"));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run(r.Name));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run("Aika: " + r.Timestr + "\tVaikeusaste: " + r.Difficultystr));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run("Ainekset"));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run(r.Ingredients));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run("Ohjeet"));
+            doc.Blocks.Add(p);
+            p = new Paragraph(new Run(r.Instructions));
+            doc.Blocks.Add(p);
+            doc.Name = "Kokkimestari";
+            IDocumentPaginatorSource idp = doc;
+            if (pd.ShowDialog() == true)
+            {
+                pd.PrintDocument(idp.DocumentPaginator, "KokkimestariTulostaa");
+            }
+        }
     }
 }
