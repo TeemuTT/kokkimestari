@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 24/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -90,7 +90,7 @@ insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('
         /// <param name="time"></param>
         /// <param name="picpath"></param>
         /// <returns></returns>
-        public static int InsertRecipe(int id, string name, string instr, string ingred, int diff, int time, string picpath)
+        public static int InsertRecipe(string name, string instr, string ingred, int diff, int time, string picpath)
         {
             try
             {

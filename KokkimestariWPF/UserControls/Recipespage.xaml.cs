@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 23/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -41,7 +41,7 @@ namespace KokkimestariWPF.UserControls
 
         private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            contentControl.Content = new RecipeViewPage((Recipe)listBox.SelectedItem);
+            contentControl.Content = new RecipeViewPage(contentControl, (Recipe)listBox.SelectedItem);
         }
     }
 }

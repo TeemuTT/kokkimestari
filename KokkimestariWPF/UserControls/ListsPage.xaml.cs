@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 24/03/2016
-* Modified: 24/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -76,7 +76,7 @@ namespace KokkimestariWPF.UserControls
 
         private void lbRecipes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            contentControl.Content = new RecipeViewPage((Recipe)lbRecipes.SelectedItem);
+            contentControl.Content = new RecipeViewPage(contentControl, (Recipe)lbRecipes.SelectedItem);
         }
     }
 }

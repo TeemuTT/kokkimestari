@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 24/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -31,9 +31,31 @@ namespace KokkimestariWPF.UserControls
     /// </summary>
     public partial class NewRecipepage : UserControl
     {
+        private Recipe recipe;
+
         public NewRecipepage()
         {
             InitializeComponent();
+
+            recipe = new Recipe(0);
+            grid.DataContext = recipe;
+
+            try
+            {
+                cbDiff.ItemsSource = AppLogic.GetDifficulties();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Vaikeusasteiden haku epäonnistuI!");
+            }
+        }
+
+        public NewRecipepage(Recipe recipe)
+        {
+            InitializeComponent();
+
+            this.recipe = recipe;
+            grid.DataContext = recipe;
 
             try
             {
@@ -47,18 +69,24 @@ namespace KokkimestariWPF.UserControls
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var recipe = new Recipe(
-                0,
-                txtName.Text,
-                txtInstr.Text,
-                txtIngredients.Text,
-                cbDiff.SelectedIndex + 1,
-                int.Parse(txtTime.Text),
-                txtPicPath.Text);
+            recipe.Name = txtName.Text;
+            recipe.Instructions = txtInstr.Text;
+            recipe.Ingredients = txtIngredients.Text;
+            recipe.Difficulty = cbDiff.SelectedIndex + 1;
+            recipe.Time = int.Parse(txtTime.Text);
+            recipe.PicturePath = txtPicPath.Text;
+
             try
             {
-                AppLogic.InsertRecipe(recipe);
-                MessageBox.Show("Resepti lisätty");
+                if (recipe.ID == 0)
+                {
+                    AppLogic.InsertRecipe(recipe);
+                    MessageBox.Show("Resepti lisätty");
+                } else
+                {
+                    AppLogic.UpdateRecipe(recipe);
+                    MessageBox.Show("Resepti päivitetty");
+                }
             }
             catch (Exception ex)
             {

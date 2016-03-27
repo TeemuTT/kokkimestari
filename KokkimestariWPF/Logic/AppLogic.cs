@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 24/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -50,7 +50,26 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                int affected = AppEngine.InsertRecipe(recipe.ID, recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.PicturePath);
+                int affected = AppEngine.InsertRecipe(recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.PicturePath);
+                if (affected > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Updates a recipe.
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <returns></returns>
+        public static bool UpdateRecipe(Recipe recipe)
+        {
+            try
+            {
+                int affected = AppEngine.UpdateRecipe(recipe.ID, recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.PicturePath);
                 if (affected > 0) return true;
                 else return false;
             }

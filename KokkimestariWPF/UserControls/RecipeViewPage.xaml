@@ -32,7 +32,9 @@
                 <ComboBox x:Name="cbLists" Width="120" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
                 <Button x:Name="btnAdd" Content="Lisää" Width="75" FontSize="14.667" Click="btnAdd_Click"/>
             </StackPanel>
-            
+            <Button x:Name="button" Content="Muokkaa" HorizontalAlignment="Center" Click="button_Click"/>
+
+
         </StackPanel>
     </Grid>
 </UserControl>

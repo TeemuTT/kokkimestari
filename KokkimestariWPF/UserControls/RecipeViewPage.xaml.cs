@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 24/03/2016
+* Modified: 27/03/2016
 * Author: Teemu Tuomela
 */
 
@@ -30,9 +30,12 @@ namespace KokkimestariWPF.UserControls
     /// </summary>
     public partial class RecipeViewPage : UserControl
     {
-        public RecipeViewPage(Recipe recipe)
+        private ContentControl cc;
+
+        public RecipeViewPage(ContentControl cc, Recipe recipe)
         {
             InitializeComponent();
+            this.cc = cc;
             grid.DataContext = recipe;
             cbLists.ItemsSource = AppLogic.GetFavouriteLists();
         }
@@ -50,6 +53,11 @@ namespace KokkimestariWPF.UserControls
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            cc.Content = new NewRecipepage((Recipe)grid.DataContext);
         }
     }
 }
