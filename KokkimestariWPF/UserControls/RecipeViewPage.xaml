@@ -6,40 +6,57 @@
              xmlns:local="clr-namespace:KokkimestariWPF.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
-    <Grid Name="grid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Margin="5,0,0,0">
-            <TextBlock x:Name="txtName" TextWrapping="Wrap" Text="{Binding Path=Name}" HorizontalAlignment="Center" FontSize="18.667"/>
-            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="{Binding Path=Timestr, StringFormat='Aika: {0}'}" Margin="0,5,0,0"/>
-            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="{Binding Path=Difficultystr, StringFormat='Vaikeusaste: {0}'}"/>
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Ainekset" FontSize="14.667" Margin="0,25,0,0"/>
 
-            <ScrollViewer Margin="0,10,0,0">
-                <TextBlock x:Name="txtIngredients" TextWrapping="Wrap" Text="{Binding Path=Ingredients}" FontSize="14.667" Margin="0,10,0,0"/>
-            </ScrollViewer>
-            
-            <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="Ohjeet" Margin="0,20,0,0" FontSize="14.667"/>
-            
-            <ScrollViewer Margin="0,10,0,5">
-                <TextBlock x:Name="txtInstructions" TextWrapping="Wrap" Text="{Binding Path=Instructions}" FontSize="14.667" ScrollViewer.CanContentScroll="True"/>
-            </ScrollViewer>
-            
-        </StackPanel>
-        <StackPanel Grid.Column="1" Margin="0,0,5,0">
-            <Image x:Name="image" Height="200" Source="{Binding Path=PicturePath}"/>
-            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Lisää suosikiksi" HorizontalAlignment="Center" FontSize="14.667" Margin="0,30,0,0"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <ComboBox x:Name="cbLists" Width="120" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
-                <Button x:Name="btnAdd" Content="Lisää" Width="75" FontSize="14.667" Click="btnAdd_Click"/>
+    <ScrollViewer Margin="10">
+        <Grid x:Name="grid" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <Image x:Name="image" Source="{Binding Path=PicturePath}" Grid.Row="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
+            <TextBlock Grid.Row="0" TextWrapping="Wrap" Text="{Binding Path=Name}" FontSize="64" FontFamily="Comic Sans MS" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="3,0,0,3">
+                <TextBlock.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="10">
+                    </DropShadowEffect>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,3,3">
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Timestr}" FontSize="24" FontFamily="Comic Sans MS" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" Foreground="White">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="3" BlurRadius="10">
+                        </DropShadowEffect>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap" Text="{Binding Path=Difficultystr, StringFormat='Vaikeusaste: {0}'}" FontSize="24" FontFamily="Comic Sans MS" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,0" Foreground="White">
+                    <TextBlock.Effect>
+                        <DropShadowEffect ShadowDepth="3" BlurRadius="10">
+                        </DropShadowEffect>
+                    </TextBlock.Effect>
+                </TextBlock>
             </StackPanel>
-            <Button x:Name="button" Content="Muokkaa" HorizontalAlignment="Center" Click="button_Click"/>
-            <Button x:Name="button1" Content="Poista" HorizontalAlignment="Center" Click="button1_Click"/>
-            <Button x:Name="button2" Content="Tulosta" HorizontalAlignment="Center" Click="button2_Click"/>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,0">
+                <Button x:Name="button" Content="Muokkaa" HorizontalAlignment="Left" Click="button_Click" Foreground="White"/>
+                <Button x:Name="button2" Content="Tulosta" HorizontalAlignment="Left" Click="button2_Click" Foreground="White" Margin="1,0,0,0"/>
+                <Button x:Name="button1" Content="Poista" HorizontalAlignment="Right" Click="button1_Click" Grid.Row="1" Margin="1,0,0,0" Foreground="White"/>
+                <ComboBox x:Name="cbLists" Width="120" ItemsSource="{Binding}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                <Button x:Name="btnAdd" Content="Lisää listalle" Click="btnAdd_Click" HorizontalAlignment="Left" Foreground="White" Margin="1,0,0,0"/>
+            </StackPanel>
 
 
-        </StackPanel>
-    </Grid>
+            <TextBlock TextWrapping="Wrap" Text="Ainekset" FontSize="21.333" Grid.Row="3" Margin="0,30,0,0"/>
+            <TextBlock x:Name="txtIngredients" TextWrapping="Wrap" Text="{Binding Path=Ingredients}" FontSize="16" Grid.Row="4" Margin="0,5,0,0"/>
+
+            <TextBlock TextWrapping="Wrap" Text="Ohjeet" Margin="0,30,0,0" FontSize="21.333" Grid.Row="5"/>
+            <TextBlock x:Name="txtInstructions" TextWrapping="Wrap" Text="{Binding Path=Instructions}" FontSize="16" ScrollViewer.CanContentScroll="True" Grid.Row="6" Margin="0,5,0,150"/>
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>

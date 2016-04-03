@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 23/03/2016
+* Modified: 03/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -36,7 +36,7 @@ namespace KokkimestariWPF
         {
             AppEngine.InitializeDatabase();
             InitializeComponent();
-            contentControl.Content = new Homepage();
+            contentControl.Content = new Homepage(contentControl);
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -49,11 +49,6 @@ namespace KokkimestariWPF
             contentControl.Content = new NewRecipepage();
         }
 
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
-            contentControl.Content = new Searchpage();
-        }
-
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new Aboutpage();
@@ -61,7 +56,7 @@ namespace KokkimestariWPF
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new Homepage();
+            contentControl.Content = new Homepage(contentControl);
         }
 
         private void button5_Click(object sender, RoutedEventArgs e)

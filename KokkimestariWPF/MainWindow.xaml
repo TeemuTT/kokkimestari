@@ -1,31 +1,73 @@
-﻿<Window x:Class="KokkimestariWPF.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KokkimestariWPF"
+        xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="KokkimestariWPF.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1024" MinWidth="640" MinHeight="480">
-    <Grid Background="#FFDADADA">
+        Title="Kokkimestari" Height="720" Width="1024" MinWidth="640" MinHeight="480">
+    <Window.Resources>
+
+
+
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style x:Key="ListBoxWrap">
+            <Setter Property="ItemsControl.ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <WrapPanel HorizontalAlignment="Center" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="BlockTemplate">
+            <Grid Background="#DA532C" Width="250" Height="150" Margin="5" Cursor="Hand">
+                <Grid.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="2"/>
+                </Grid.BitmapEffect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding PicturePath}" Stretch="UniformToFill" StretchDirection="Both" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Name}" Foreground="White" FontSize="18.667" Margin="2,2,0,2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <TextBlock Text="{Binding Timestr}" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,2,2,2" HorizontalAlignment="Right" FontSize="14.667" VerticalAlignment="Bottom"/>
+            </Grid>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid Background="#EFF4FF">
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"/>
-            <RowDefinition Height="274*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="417*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#FFD18539" Grid.RowSpan="2">
-            <Button x:Name="button" Content="Aloitus" Click="button_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
-            <Button x:Name="button1" Content="Omat reseptit" Click="button1_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
-            <Button x:Name="button4" Content="Luo resepti" Click="button4_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
-            <Button x:Name="button5" Content="Suosikit" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White" Click="button5_Click"/>
-            <Button x:Name="button2" Content="Reseptihaku" Click="button2_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
-            <Button x:Name="button3" Content="About" Click="button3_Click" Background="#00DDDDDD" BorderBrush="{x:Null}" Height="30" FontSize="14.667" Foreground="White"/>
+        <StackPanel Background="#FFDA532C" Grid.RowSpan="2">
+            <StackPanel.BitmapEffect>
+                <DropShadowBitmapEffect Direction="0" ShadowDepth="2" Opacity="0.9"/>
+            </StackPanel.BitmapEffect>
+            <Button x:Name="button" Content="Aloitus" Click="button_Click" FontSize="21.333" Foreground="White" Margin="0,40,0,0" Height="45" Width="200" FontWeight="Normal"/>
+            <Button x:Name="button1" Content="Omat reseptit" Click="button1_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
+            <Button x:Name="button4" Content="Luo resepti" Click="button4_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
+            <Button x:Name="button5" Content="Suosikit" FontSize="21.333" Foreground="White" Click="button5_Click" Height="45" Width="200" FontWeight="Normal"/>
+            <Button x:Name="button3" Content="About" Click="button3_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
         </StackPanel>
 
         <ContentControl x:Name="contentControl" Grid.Column="1" Margin="0" Grid.Row="1"/>
-        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Kokkimestari" Grid.Column="1" FontSize="32" Margin="0" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Kokkimestari" Grid.Column="1" FontSize="32" Margin="0,0,0,30" HorizontalAlignment="Center"/>
 
     </Grid>
 </Window>

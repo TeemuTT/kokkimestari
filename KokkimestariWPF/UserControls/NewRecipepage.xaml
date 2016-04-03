@@ -6,30 +6,41 @@
              xmlns:local="clr-namespace:KokkimestariWPF.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
-    <Grid Name="grid">
+
+    <Grid Name="grid" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="400"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="5,0,5,0">
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Nimi" FontSize="14.667"/>
-            <TextBox x:Name="txtName" Height="23" TextWrapping="Wrap" Text="{Binding Path=Name}"/>
-            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Ohjeet" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtInstr" Height="150" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Instructions}"/>
-            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="Aika" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtTime" Height="23" TextWrapping="Wrap"  Text="{Binding Path=Time}"/>
-            <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="Vaikeusaste" Margin="0,10,0,0" FontSize="14.667"/>
+
+        <TextBlock x:Name="txtTitle" TextWrapping="Wrap" Text="Uusi resepti" FontSize="24" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="43,0,42,0"/>
+
+        <TextBlock TextWrapping="Wrap" Text="Ohjeet" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="14.667"/>
+        <TextBlock TextWrapping="Wrap" Text="Ainekset" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="14.667"/>
+
+        <TextBox x:Name="txtInstr" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Instructions}" Grid.Row="3" Grid.Column="2" AcceptsTab="True" Margin="5,0,0,0"/>
+        <TextBox x:Name="txtIngredients" TextWrapping="Wrap" AcceptsReturn="True"  Text="{Binding Path=Ingredients}" Grid.Row="3" Grid.Column="1" AcceptsTab="True" Margin="5,0"/>
+
+        <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Margin="0,10,5,0">
+            <TextBlock TextWrapping="Wrap" Text="Nimi" HorizontalAlignment="Left" FontSize="14.667"/>
+            <TextBox x:Name="txtName" TextWrapping="Wrap" Text="{Binding Path=Name}" FontSize="14.667"/>
+            <TextBlock TextWrapping="Wrap" Text="Aika minuutteina" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="14.667"/>
+            <TextBox x:Name="txtTime" TextWrapping="Wrap" Text="{Binding Path=Time, Mode=OneWay}" FontSize="14.667"/>
+            <TextBlock TextWrapping="Wrap" Text="Vaikeusaste" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="14.667" />
             <ComboBox x:Name="cbDiff" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
+            <Button x:Name="btnChoosePic" Content="Valitse kuva" Click="btnChoosePic_Click" Margin="0,10,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="12"/>
+            <TextBox x:Name="txtPicPath" TextWrapping="Wrap"  Text="{Binding Path=PicturePath}" Visibility="Hidden"/>
+            <Button x:Name="btnSave" Content="Tallenna" Click="btnSave_Click" HorizontalAlignment="Left" Margin="0,20,0,0" Foreground="White" FontSize="14.667"/>
+
         </StackPanel>
-        <StackPanel Grid.Column="1" Margin="5,0,5,0">
-            <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="Kuva" FontSize="14.667"/>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnChoosePic" Content="Valitse kuva" HorizontalAlignment="Right" Click="btnChoosePic_Click"/>
-                <TextBox x:Name="txtPicPath" Height="23" TextWrapping="Wrap"  Text="{Binding Path=PicturePath}"/>
-            </StackPanel>
-            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="Ainekset" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtIngredients" Height="150" TextWrapping="Wrap" AcceptsReturn="True"  Text="{Binding Path=Ingredients}"/>
-            <Button x:Name="btnSave" Content="Tallenna" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14.667" Click="btnSave_Click"/>
-        </StackPanel>
+        <Image x:Name="image" Source="{Binding Path=PicturePath}" Grid.Row="1" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
+
     </Grid>
 </UserControl>

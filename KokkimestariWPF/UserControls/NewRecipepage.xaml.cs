@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 27/03/2016
+* Modified: 03/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -39,14 +39,16 @@ namespace KokkimestariWPF.UserControls
 
             recipe = new Recipe(0);
             grid.DataContext = recipe;
+            image.Source = new BitmapImage(new Uri("C:\\Users\\Teemu\\Desktop\\mk6_jouluinen_vihersalaatti.jpg"));
 
             try
             {
                 cbDiff.ItemsSource = AppLogic.GetDifficulties();
+                cbDiff.SelectedIndex = 0;
             }
             catch (Exception)
             {
-                MessageBox.Show("Vaikeusasteiden haku epäonnistuI!");
+                MessageBox.Show("Vaikeusasteiden haku epäonnistui!");
             }
         }
 
@@ -54,12 +56,14 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
 
+            txtTitle.Text = "Muokkaa reseptiä";
             this.recipe = recipe;
             grid.DataContext = recipe;
 
             try
             {
                 cbDiff.ItemsSource = AppLogic.GetDifficulties();
+                cbDiff.Text = recipe.Difficultystr;
             }
             catch (Exception)
             {
@@ -101,6 +105,7 @@ namespace KokkimestariWPF.UserControls
             if (result == true)
             {
                 txtPicPath.Text = dialog.FileName;
+                image.Source = new BitmapImage(new Uri(dialog.FileName));
             }
         }
     }

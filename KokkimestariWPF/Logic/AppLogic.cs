@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 27/03/2016
+* Modified: 03/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -32,7 +32,7 @@ namespace KokkimestariWPF.Logic
                 var r = new Recipe(Convert.ToInt32(row["ID"]));
                 r.Name = row["Name"].ToString();
                 r.Ingredients = row["Ingredients"].ToString();
-                r.Instructions = row["Ingredients"].ToString();
+                r.Instructions = row["Instructions"].ToString();
                 r.Difficulty = Convert.ToInt32(row["Difficulty"]);
                 r.Time = Convert.ToInt32(row["Time"]);
                 r.PicturePath = row["PicturePath"].ToString();
@@ -216,6 +216,25 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
+        /// Removes recipe from list.
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static bool RemoveRecipeFromList(Recipe recipe, FavouriteList list)
+        {
+            try
+            {
+                if (AppEngine.RemoveRecipeFromList(recipe.ID, list.ID) > 0) return true;
+                else return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Get recipes belonging to a specific FavouriteList.
         /// </summary>
         /// <param name="list"></param>
@@ -231,7 +250,7 @@ namespace KokkimestariWPF.Logic
                     var r = new Recipe(Convert.ToInt32(row["ID"]));
                     r.Name = row["Name"].ToString();
                     r.Ingredients = row["Ingredients"].ToString();
-                    r.Instructions = row["Ingredients"].ToString();
+                    r.Instructions = row["Instructions"].ToString();
                     r.Difficulty = Convert.ToInt32(row["Difficulty"]);
                     r.Time = Convert.ToInt32(row["Time"]);
                     r.PicturePath = row["PicturePath"].ToString();
@@ -247,14 +266,15 @@ namespace KokkimestariWPF.Logic
         }
 
         /// <summary>
-        /// Convert seconds to hours:minutes:seconds.
+        /// Convert minutes to hours + minutes.
         /// </summary>
         /// <param name="seconds"></param>
         /// <returns></returns>
-        public static string SecondsToHMS(int seconds)
+        public static string MinutesToString(int minutes)
         {
-            TimeSpan t = TimeSpan.FromSeconds(seconds);
-            return t.ToString(@"hh\:mm\:ss");
+            var h = Math.Floor((decimal)minutes / 60);
+            var m = minutes % 60;
+            return (h > 0) ? h + "h " + m + "min" : m + "min";
         }
 
         /// <summary>
@@ -298,7 +318,7 @@ namespace KokkimestariWPF.Logic
         {
             get
             {
-                return AppLogic.SecondsToHMS(Time);
+                return AppLogic.MinutesToString(Time);
             }
         }
         public string PicturePath { get; set; }

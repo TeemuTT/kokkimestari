@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <StackPanel VerticalAlignment="Top">
-            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Kokkimestari versio 0.1" HorizontalAlignment="Center" FontSize="14.667"/>
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Teemu Tuomela" HorizontalAlignment="Center" FontSize="14.667"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="Kokkimestari versio 1.0" HorizontalAlignment="Center" FontSize="18.667"/>
+            <TextBlock TextWrapping="Wrap" Text="Teemu Tuomela" HorizontalAlignment="Center" FontSize="18.667"/>
         </StackPanel>
     </Grid>
 </UserControl>

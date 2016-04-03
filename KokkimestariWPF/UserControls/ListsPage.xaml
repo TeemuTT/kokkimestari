@@ -6,27 +6,67 @@
              xmlns:local="clr-namespace:KokkimestariWPF.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
-    <Grid>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="ListnameTemplate">
+            <Grid Background="#FFDA532C" Cursor="Hand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding Path=Name}" Grid.Row="0" FontSize="21.333" Foreground="White" Margin="2,2,50,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <TextBlock Text="{Binding Path=Description}" Grid.Row="1" Foreground="White" Margin="2,0,2,2" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16"/>
+                <Button Style="{x:Null}" Click="remove_list" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" FontWeight="Bold" FontSize="13.333" Background="#FFE62D2D" Foreground="White" Padding="10,5" BorderBrush="Transparent"/>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="BlockTemplateWithRemove">
+            <Grid Background="#DA532C" Width="250" Height="150" Margin="5" Cursor="Hand">
+                <Grid.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="2"/>
+                </Grid.BitmapEffect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding PicturePath}" Stretch="UniformToFill" StretchDirection="Both" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Style="{x:Null}" Click="remove_recipe" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Content="X" FontWeight="Bold" FontSize="13.333" Background="#FFE62D2D" Foreground="White" Padding="10,5" BorderBrush="White"/>
+                <TextBlock Text="{Binding Name}" Foreground="White" FontSize="18.667" Margin="2,2,0,2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <TextBlock Text="{Binding Timestr}" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,2,2,2" HorizontalAlignment="Right" FontSize="14.667" VerticalAlignment="Bottom"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="5,0">
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Suosikit" HorizontalAlignment="Center" FontSize="21.333"/>
-            <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="Suosikkilistat" Margin="0,30,0,0" HorizontalAlignment="Center" FontSize="14.667"/>
-            <ListBox x:Name="lbLists" Height="200" SelectionChanged="lbLists_SelectionChanged" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
-            <TextBlock x:Name="textBlock3" TextWrapping="Wrap" Text="Uusi lista" HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="14.667"/>
-            <TextBlock x:Name="textBlock4" TextWrapping="Wrap" Text="Nimi" Margin="0,5,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtName" Height="23" TextWrapping="Wrap"/>
-            <TextBlock x:Name="textBlock5" TextWrapping="Wrap" Text="Kuvaus" Margin="0,5,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtDesc" Height="23" TextWrapping="Wrap"/>
-            <Button x:Name="button" Content="Tallenna" HorizontalAlignment="Center" Margin="0,10,0,0" FontSize="14.667" Click="button_Click"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1" Margin="5,0">
-            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="Listan reseptit" HorizontalAlignment="Center" Margin="0,58,0,0" FontSize="14.667"/>
-            <ListBox x:Name="lbRecipes" Height="200" SelectionChanged="lbRecipes_SelectionChanged" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
-            <Button x:Name="button1" Content="Poista lista" Margin="0,20,0,0" Click="button1_Click"/>
+
+        <TextBlock TextWrapping="Wrap" Text="Suosikit" FontSize="24" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+
+        <ListBox x:Name="lbLists" SelectionChanged="lbLists_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListnameTemplate}" Grid.Row="1" Margin="0,30,5,0" FontSize="24" Padding="0,0,5,0" Background="Transparent"/>
+        <ListBox x:Name="lbRecipes" SelectionChanged="lbRecipes_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource BlockTemplateWithRemove}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxWrap}" Grid.Row="1" Grid.Column="1" Margin="5,30,0,0" Padding="5,0,0,0" Background="Transparent" BorderBrush="#00ABADB3" Grid.RowSpan="2"/>
+
+        <StackPanel Grid.Row="2">
+            <!--<Button x:Name="button1" Content="Poista lista" Click="button1_Click" HorizontalAlignment="Left" Margin="0,5,0,0" Foreground="White" FontSize="12"/>-->
+            <TextBlock TextWrapping="Wrap" Text="Uusi lista" FontSize="18.667" Margin="0,50,0,0" HorizontalAlignment="Center" TextDecorations="{x:Null}"/>
+            <TextBlock TextWrapping="Wrap" Text="Nimi" Margin="0,5,0,0" FontSize="14.667" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtName" TextWrapping="Wrap" FontSize="14.667" Margin="0,0,5,0"/>
+            <TextBlock TextWrapping="Wrap" Text="Lyhyt kuvaus" Margin="0,5,0,0" FontSize="14.667" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtDesc" TextWrapping="Wrap" FontSize="14.667" Margin="0,0,5,0"/>
+            <Button x:Name="button" Content="Tallenna" Click="button_Click" HorizontalAlignment="Left" Margin="0,10,0,50" Foreground="White" FontSize="12"/>
         </StackPanel>
 
     </Grid>
+
 </UserControl>
