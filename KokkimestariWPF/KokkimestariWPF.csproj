@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="DataAccess\AppEngine.cs" />
     <Compile Include="Logic\AppLogic.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TextValidator.cs" />
     <Compile Include="UserControls\ListsPage.xaml.cs">
       <DependentUpon>ListsPage.xaml</DependentUpon>
@@ -171,6 +172,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Storage\migrations.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\placeholderimg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

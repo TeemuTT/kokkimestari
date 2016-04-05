@@ -49,11 +49,11 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto" MinWidth="135"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock TextWrapping="Wrap" Text="Suosikit" FontSize="24" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
+        <TextBlock TextWrapping="Wrap" Text="Suosikit" FontSize="24" Grid.Row="0" HorizontalAlignment="Center" Grid.Column="1" Margin="0" Width="auto" VerticalAlignment="Center"/>
 
         <ListBox x:Name="lbLists" SelectionChanged="lbLists_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListnameTemplate}" Grid.Row="1" Margin="0,30,5,0" FontSize="24" Padding="0,0,5,0" Background="Transparent"/>
         <ListBox x:Name="lbRecipes" SelectionChanged="lbRecipes_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource BlockTemplateWithRemove}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxWrap}" Grid.Row="1" Grid.Column="1" Margin="5,30,0,0" Padding="5,0,0,0" Background="Transparent" BorderBrush="#00ABADB3" Grid.RowSpan="2"/>
@@ -74,7 +74,7 @@
             <TextBox x:Name="txtDesc" TextWrapping="Wrap" FontSize="14.667" Margin="0,0,5,0">
                 <Binding Path="Description" UpdateSourceTrigger="LostFocus">
                     <Binding.ValidationRules>
-                        <validators:TextValidator Minimum="1" Maximum="15"/>
+                        <validators:TextValidator Minimum="0" Maximum="15"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>

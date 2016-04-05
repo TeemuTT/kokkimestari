@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 03/04/2016
+* Modified: 05/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -12,8 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KokkimestariWPF.Logic
 {
@@ -129,9 +127,13 @@ namespace KokkimestariWPF.Logic
         /// <returns></returns>
         public static Recipe GetRecipeOfTheDay()
         {
-            // TODO: Add logic to fetch only daily.
+            var recipes = GetAllRecipes();
+            if (recipes.Count == 0)
+                return new Recipe(0, "Ei reseptejä!", "", "", 1, 15, @"/Images/placeholderimg.jpg");
+            else if (recipes.Count == 1)
+                return recipes.ElementAt(0);
             var r = new Random();
-            return GetAllRecipes().ElementAt(r.Next(1, GetAllRecipes().Count));
+            return recipes.ElementAt(r.Next(1, GetAllRecipes().Count));
         }
 
         /// <summary>
@@ -342,17 +344,6 @@ namespace KokkimestariWPF.Logic
             Difficulty = diff;
             Time = time;
             PicturePath = picpath;
-        }
-    }
-
-    public class Ingredient
-    {
-        public int ID { get; set; }
-        public string Name { get; set; }
-
-        public Ingredient()
-        {
-
         }
     }
 

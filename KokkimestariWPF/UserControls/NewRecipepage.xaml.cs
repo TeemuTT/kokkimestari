@@ -10,6 +10,7 @@
 using KokkimestariWPF.Logic;
 using Microsoft.Win32;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -27,9 +28,8 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
 
-            recipe = new Recipe(0, "", "", "", 0, 15, "");
+            recipe = new Recipe(0, "", "", "", 0, 15, @"\Images\placeholderimg.jpg");
             grid.DataContext = recipe;
-            image.Source = new BitmapImage(new Uri("C:\\Users\\Teemu\\Desktop\\mk6_jouluinen_vihersalaatti.jpg"));
 
             try
             {
@@ -57,7 +57,7 @@ namespace KokkimestariWPF.UserControls
             }
             catch (Exception)
             {
-                MessageBox.Show("Vaikeusasteiden haku epäonnistuI!");
+                MessageBox.Show("Vaikeusasteiden haku epäonnistui!");
             }
         }
 
@@ -98,10 +98,12 @@ namespace KokkimestariWPF.UserControls
         private void btnChoosePic_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFileDialog();
+            dialog.Filter = "Kuvatiedostot (jpg, png)|*.jpg;*.jpeg;*.png";
             var result = dialog.ShowDialog();
             if (result == true)
             {
                 txtPicPath.Text = dialog.FileName;
+                recipe.PicturePath = dialog.FileName;
                 image.Source = new BitmapImage(new Uri(dialog.FileName));
             }
         }

@@ -32,6 +32,7 @@ namespace KokkimestariWPF.UserControls
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            if (cbLists.SelectedIndex == -1) return;
             var recipe = (Recipe)grid.DataContext;
             var list = (FavouriteList)cbLists.SelectedItem;
             try
@@ -56,7 +57,6 @@ namespace KokkimestariWPF.UserControls
             try
             {
                 AppLogic.DeleteRecipe((Recipe)grid.DataContext);
-                MessageBox.Show("Resepti poistettu");
                 cc.Content = new Recipespage(cc);
             }
             catch (Exception ex)

@@ -12,27 +12,27 @@
             <RowDefinition Height="250"/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <TextBlock TextWrapping="Wrap" Text="Päivän resepti" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21.333" Margin="80,0" Grid.Row="0" Height="28" Width="130"/>
+        <TextBlock TextWrapping="Wrap" Text="Satunnainen ruokaehdotus:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21.333" Margin="0" Grid.Row="0" Width="auto"/>
 
-        <Button Width="500" Grid.Row="1" Padding="0" Margin="0,30,0,0" Click="Button_Click" Cursor="Hand">
-        <Grid Name="innergrid" Width="500" Background="#DA532C" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="65*"/>
-                <ColumnDefinition Width="35*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.BitmapEffect>
-                <DropShadowBitmapEffect ShadowDepth="2">
+        <Button Width="auto" Grid.Row="1" Padding="0" Margin="0,30,0,0" Click="Button_Click" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Name="innergrid" Width="500" Background="#DA532C" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="35*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.BitmapEffect>
+                    <DropShadowBitmapEffect ShadowDepth="2">
 
-                </DropShadowBitmapEffect>
-            </Grid.BitmapEffect>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Image Source="{Binding Path=PicturePath}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill" Margin="0"/>
-            <TextBlock Text="{Binding Path=Name}" Grid.Row="1" Foreground="White" FontSize="18.667" Margin="2,2,0,2" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-            <TextBlock Text="{Binding Path=Timestr}" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,2,2,2" HorizontalAlignment="Right" FontSize="14.667" VerticalAlignment="Bottom"/>
-        </Grid>
+                    </DropShadowBitmapEffect>
+                </Grid.BitmapEffect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Image Source="{Binding Path=PicturePath}" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Stretch="UniformToFill" Margin="0"/>
+                <TextBlock Text="{Binding Path=Name}" Grid.Row="1" Foreground="White" FontSize="18.667" Margin="2,2,0,2" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                <TextBlock Text="{Binding Path=Timestr}" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,2,2,2" HorizontalAlignment="Right" FontSize="14.667" VerticalAlignment="Bottom"/>
+            </Grid>
         </Button>
         
     </Grid>

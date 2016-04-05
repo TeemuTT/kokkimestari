@@ -1,0 +1,6 @@
+PRAGMA foreign_keys = ON;
+create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);
+create table Difficulty (ID integer primary key not null, Name text not null);
+create table FavouriteList(ID integer primary key not null, Name text not null, Description text null);
+create table FavouriteList_Recipe (ID integer primary key not null, FavouriteList_id integer not null, Recipe_id integer not null, unique(FavouriteList_id, Recipe_id), foreign key (FavouriteList_id) references FavouriteList(ID) on delete cascade, foreign key (Recipe_id) references Recipe(ID) on delete cascade);
+insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('Tosi vaikea');

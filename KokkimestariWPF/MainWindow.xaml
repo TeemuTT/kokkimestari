@@ -8,9 +8,6 @@
         mc:Ignorable="d"
         Title="Kokkimestari" Height="720" Width="1024" MinWidth="640" MinHeight="480">
     <Window.Resources>
-
-
-
         <Style TargetType="{x:Type ListBoxItem}">
             <Setter Property="Padding" Value="0"/>
         </Style>
@@ -26,7 +23,7 @@
         </Style>
 
         <DataTemplate x:Key="BlockTemplate">
-            <Grid Background="#DA532C" Width="250" Height="150" Margin="5" Cursor="Hand">
+            <Grid Background="#DA532C" Width="300" Height="200" Margin="5" Cursor="Hand">
                 <Grid.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="2"/>
                 </Grid.BitmapEffect>

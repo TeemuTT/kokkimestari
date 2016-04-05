@@ -3,18 +3,13 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 27/03/2016
+* Modified: 05/04/2016
 * Author: Teemu Tuomela
 */
 
-using KokkimestariWPF.Logic;
 using System;
 using System.Data.SQLite;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 
 namespace KokkimestariWPF.DataAccess
@@ -38,19 +33,21 @@ namespace KokkimestariWPF.DataAccess
         /// </summary>
         public static void InitializeDatabase()
         {
-            if (!File.Exists("database.sqlite"))
+            if (!File.Exists("kokkimestaridb.sqlite"))
             {
+                string migrations = "";
+                using (var file = new StreamReader("migrations.txt"))
+                {
+                    string line;
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        migrations += line;
+                    }
+                }
                 using (var db = MakeConnection())
                 {
                     var cmd = db.CreateCommand();
-                    cmd.CommandText = @"create table Recipe (ID integer primary key not null, Name text not null, Instructions text not null, Ingredients text not null, Difficulty integer not null, Time integer not null, PicturePath text null);
-create table Difficulty (ID integer primary key not null, Name text not null);
-create table Ingredient (ID integer primary key not null, Name text not null);
-create table FavouriteList(ID integer primary key not null, Name text not null, Description text null);
-create table FavouriteList_Recipe (ID integer primary key not null, FavouriteList_id integer not null, Recipe_id integer not null);
-create table Recipe_Ingredient (ID integer primary key not null, Recipe_id integer not null, Ingredient_id integer not null, Amount text not null);
-insert into Difficulty (Name) values ('Helppo'), ('Keskivaikea'), ('Vaikea'), ('Tosi vaikea');
-";
+                    cmd.CommandText = migrations;
                     cmd.ExecuteNonQuery();
                 }
             }

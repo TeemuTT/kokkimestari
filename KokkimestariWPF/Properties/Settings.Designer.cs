@@ -26,7 +26,7 @@ namespace KokkimestariWPF.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=database.sqlite; Version=3;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=kokkimestaridb.sqlite; Version=3;")]
         public string DBString {
             get {
                 return ((string)(this["DBString"]));
