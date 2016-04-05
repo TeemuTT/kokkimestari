@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="DataAccess\AppEngine.cs" />
     <Compile Include="Logic\AppLogic.cs" />
+    <Compile Include="TextValidator.cs" />
     <Compile Include="UserControls\ListsPage.xaml.cs">
       <DependentUpon>ListsPage.xaml</DependentUpon>
     </Compile>
@@ -99,9 +100,6 @@
     </Compile>
     <Compile Include="UserControls\RecipeViewPage.xaml.cs">
       <DependentUpon>RecipeViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Searchpage.xaml.cs">
-      <DependentUpon>Searchpage.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\Aboutpage.xaml">
       <SubType>Designer</SubType>
@@ -142,10 +140,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\RecipeViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Searchpage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

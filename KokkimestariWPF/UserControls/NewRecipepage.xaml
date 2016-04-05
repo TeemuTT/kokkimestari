@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KokkimestariWPF.UserControls"
+             xmlns:validators="clr-namespace:KokkimestariWPF"
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
 
@@ -25,14 +26,46 @@
         <TextBlock TextWrapping="Wrap" Text="Ohjeet" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="14.667"/>
         <TextBlock TextWrapping="Wrap" Text="Ainekset" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,10,0,0" FontSize="14.667"/>
 
-        <TextBox x:Name="txtInstr" TextWrapping="Wrap" AcceptsReturn="True" Text="{Binding Path=Instructions}" Grid.Row="3" Grid.Column="2" AcceptsTab="True" Margin="5,0,0,0"/>
-        <TextBox x:Name="txtIngredients" TextWrapping="Wrap" AcceptsReturn="True"  Text="{Binding Path=Ingredients}" Grid.Row="3" Grid.Column="1" AcceptsTab="True" Margin="5,0"/>
+        <TextBox x:Name="txtInstr" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="3" Grid.Column="2" AcceptsTab="True" Margin="5,0,0,0">
+            <TextBox.Text>
+                <Binding Path="Instructions" UpdateSourceTrigger="LostFocus">
+                    <Binding.ValidationRules>
+                        <validators:TextValidator Minimum="1"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox x:Name="txtIngredients" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="3" Grid.Column="1" AcceptsTab="True" Margin="5,0">
+            <TextBox.Text>
+                <Binding Path="Ingredients" UpdateSourceTrigger="LostFocus">
+                    <Binding.ValidationRules>
+                        <validators:TextValidator Minimum="1"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
         <StackPanel Grid.Row="2" Grid.RowSpan="2" Grid.Column="0" Margin="0,10,5,0">
             <TextBlock TextWrapping="Wrap" Text="Nimi" HorizontalAlignment="Left" FontSize="14.667"/>
-            <TextBox x:Name="txtName" TextWrapping="Wrap" Text="{Binding Path=Name}" FontSize="14.667"/>
+            <TextBox x:Name="txtName" TextWrapping="Wrap" FontSize="14.667">
+                <TextBox.Text>
+                    <Binding Path="Name" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validators:TextValidator Minimum="1" Maximum="25"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock TextWrapping="Wrap" Text="Aika minuutteina" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="14.667"/>
-            <TextBox x:Name="txtTime" TextWrapping="Wrap" Text="{Binding Path=Time, Mode=OneWay}" FontSize="14.667"/>
+            <TextBox x:Name="txtTime" TextWrapping="Wrap" FontSize="14.667">
+                <TextBox.Text>
+                    <Binding Path="Time" UpdateSourceTrigger="LostFocus">
+                        <Binding.ValidationRules>
+                            <validators:TextValidator Minimum="1" Maximum="3"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <TextBlock TextWrapping="Wrap" Text="Vaikeusaste" HorizontalAlignment="Left" Margin="0,10,0,0" FontSize="14.667" />
             <ComboBox x:Name="cbDiff" ItemsSource="{Binding}" DisplayMemberPath="Name"/>
             <Button x:Name="btnChoosePic" Content="Valitse kuva" Click="btnChoosePic_Click" Margin="0,10,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="12"/>

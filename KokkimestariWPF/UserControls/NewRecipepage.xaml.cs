@@ -3,26 +3,16 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 03/04/2016
+* Modified: 05/04/2016
 * Author: Teemu Tuomela
 */
 
 using KokkimestariWPF.Logic;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace KokkimestariWPF.UserControls
 {
@@ -37,7 +27,7 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
 
-            recipe = new Recipe(0);
+            recipe = new Recipe(0, "", "", "", 0, 15, "");
             grid.DataContext = recipe;
             image.Source = new BitmapImage(new Uri("C:\\Users\\Teemu\\Desktop\\mk6_jouluinen_vihersalaatti.jpg"));
 
@@ -73,12 +63,18 @@ namespace KokkimestariWPF.UserControls
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            recipe.Name = txtName.Text;
-            recipe.Instructions = txtInstr.Text;
-            recipe.Ingredients = txtIngredients.Text;
-            recipe.Difficulty = cbDiff.SelectedIndex + 1;
-            recipe.Time = int.Parse(txtTime.Text);
-            recipe.PicturePath = txtPicPath.Text;
+            txtName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtTime.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtInstr.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtIngredients.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            if (Validation.GetHasError(txtName))
+                return;
+            else if (Validation.GetHasError(txtTime))
+                return;
+            else if (Validation.GetHasError(txtInstr))
+                return;
+            else if (Validation.GetHasError(txtIngredients))
+                return;
 
             try
             {
@@ -86,7 +82,8 @@ namespace KokkimestariWPF.UserControls
                 {
                     AppLogic.InsertRecipe(recipe);
                     MessageBox.Show("Resepti lisätty");
-                } else
+                }
+                else
                 {
                     AppLogic.UpdateRecipe(recipe);
                     MessageBox.Show("Resepti päivitetty");

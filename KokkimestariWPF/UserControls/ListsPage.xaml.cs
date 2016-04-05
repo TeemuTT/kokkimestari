@@ -3,25 +3,14 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 24/03/2016
-* Modified: 03/04/2016
+* Modified: 05/04/2016
 * Author: Teemu Tuomela
 */
 
 using KokkimestariWPF.Logic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace KokkimestariWPF.UserControls
 {
@@ -31,6 +20,7 @@ namespace KokkimestariWPF.UserControls
     public partial class ListsPage : UserControl
     {
         private ContentControl contentControl;
+        private FavouriteList newList;
 
         public ListsPage(ContentControl contentControl)
         {
@@ -46,15 +36,24 @@ namespace KokkimestariWPF.UserControls
             {
                 MessageBox.Show(ex.Message);
             }
+
+            newList = new FavouriteList(0, "", "");
+            txtName.DataContext = newList;
+            txtDesc.DataContext = newList;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            var list = new FavouriteList(0, txtName.Text, txtDesc.Text);
+            txtName.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            txtDesc.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            if (Validation.GetHasError(txtName))
+                return;
+            else if (Validation.GetHasError(txtDesc))
+                return;
+
             try
             {
-                AppLogic.AddFavouriteList(list);
-                MessageBox.Show("Lisätty");
+                AppLogic.AddFavouriteList(newList);
                 lbLists.DataContext = AppLogic.GetFavouriteLists();
             }
             catch (Exception ex)
@@ -65,7 +64,7 @@ namespace KokkimestariWPF.UserControls
 
         private void lbLists_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbLists.SelectedItem == null) return; // This happens when we delete a list.
+            if (lbLists.SelectedItem == null) return;
             try
             {
                 lbRecipes.DataContext = AppLogic.GetRecipesOfList((FavouriteList)lbLists.SelectedItem);
@@ -105,7 +104,6 @@ namespace KokkimestariWPF.UserControls
             {
                 AppLogic.DeleteFavouriteList(list);
                 lbLists.DataContext = AppLogic.GetFavouriteLists();
-                MessageBox.Show("Lista poistettu");
             }
             catch (Exception ex)
             {
