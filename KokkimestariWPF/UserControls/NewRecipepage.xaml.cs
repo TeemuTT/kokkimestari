@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -28,7 +28,7 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
 
-            recipe = new Recipe(0, "", "", "", 0, 15, @"\Images\placeholderimg.jpg");
+            recipe = new Recipe(0, "", "", "", 0, 15, @"Images/kokkimestari.png");
             grid.DataContext = recipe;
 
             try
@@ -82,6 +82,8 @@ namespace KokkimestariWPF.UserControls
                 {
                     AppLogic.InsertRecipe(recipe);
                     MessageBox.Show("Resepti lisätty");
+                    recipe = new Recipe(0, "", "", "", 0, 15, @"Images/placeholderimg.jpg");
+                    grid.DataContext = recipe;
                 }
                 else
                 {
@@ -102,9 +104,22 @@ namespace KokkimestariWPF.UserControls
             var result = dialog.ShowDialog();
             if (result == true)
             {
-                txtPicPath.Text = dialog.FileName;
-                recipe.PicturePath = dialog.FileName;
-                image.Source = new BitmapImage(new Uri(dialog.FileName));
+                if (!File.Exists("Images"))
+                {
+                    Directory.CreateDirectory("Images");
+                }
+                var filename = Path.GetFileName(dialog.FileName);
+                var copypath = Path.Combine("Images", filename);
+
+                if (!File.Exists(copypath))
+                {
+                    File.Copy(dialog.FileName, copypath, true);
+                }
+
+                txtPicPath.Text = copypath;
+                recipe.PicturePath = copypath;
+
+                image.Source = new BitmapImage(new Uri(recipe.PicturePath));
             }
         }
     }

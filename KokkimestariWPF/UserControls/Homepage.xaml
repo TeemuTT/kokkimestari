@@ -6,15 +6,18 @@
              xmlns:local="clr-namespace:KokkimestariWPF"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="5">
+    <Grid Margin="0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="250"/>
-            <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <TextBlock TextWrapping="Wrap" Text="Satunnainen ruokaehdotus:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21.333" Margin="0" Grid.Row="0" Width="auto"/>
 
-        <Button Width="auto" Grid.Row="1" Padding="0" Margin="0,30,0,0" Click="Button_Click" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image x:Name="image" Source="{Binding}" Grid.Row="0" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
+
+        <TextBlock TextWrapping="Wrap" Text="Satunnainen reseptiehdotus:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21.333" Margin="0,20" Grid.Row="1" Width="auto"/>
+
+        <Button Width="auto" Grid.Row="2" Padding="0" Margin="0" Click="Button_Click" Cursor="Hand" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Name="innergrid" Width="500" Background="#DA532C" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="65*"/>
@@ -34,6 +37,6 @@
                 <TextBlock Text="{Binding Path=Timestr}" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,2,2,2" HorizontalAlignment="Right" FontSize="14.667" VerticalAlignment="Bottom"/>
             </Grid>
         </Button>
-        
+
     </Grid>
 </UserControl>

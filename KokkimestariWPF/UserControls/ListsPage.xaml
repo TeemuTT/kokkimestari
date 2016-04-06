@@ -22,7 +22,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="BlockTemplateWithRemove">
-            <Grid Background="#DA532C" Width="250" Height="150" Margin="5" Cursor="Hand">
+            <Grid Background="#DA532C" Width="350" Height="220" Margin="5" Cursor="Hand">
                 <Grid.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="2"/>
                 </Grid.BitmapEffect>
@@ -45,27 +45,25 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" MinWidth="135"/>
+            <ColumnDefinition Width="auto" MinWidth="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock TextWrapping="Wrap" Text="Suosikit" FontSize="24" Grid.Row="0" HorizontalAlignment="Center" Grid.Column="1" Margin="0" Width="auto" VerticalAlignment="Center"/>
+        <TextBlock TextWrapping="Wrap" Text="Menút" FontSize="24" Grid.Row="0" HorizontalAlignment="Center" Margin="0" Width="auto" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
 
-        <ListBox x:Name="lbLists" SelectionChanged="lbLists_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListnameTemplate}" Grid.Row="1" Margin="0,30,5,0" FontSize="24" Padding="0,0,5,0" Background="Transparent"/>
         <ListBox x:Name="lbRecipes" SelectionChanged="lbRecipes_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource BlockTemplateWithRemove}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource ListBoxWrap}" Grid.Row="1" Grid.Column="1" Margin="5,30,0,0" Padding="5,0,0,0" Background="Transparent" BorderBrush="#00ABADB3" Grid.RowSpan="2"/>
 
-        <StackPanel Grid.Row="2">
-            <TextBlock TextWrapping="Wrap" Text="Uusi lista" FontSize="18.667" Margin="0,50,0,0" HorizontalAlignment="Center" TextDecorations="{x:Null}"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock TextWrapping="Wrap" Text="Uusi menú" FontSize="18.667" Margin="0,50,0,0" HorizontalAlignment="Center" TextDecorations="{x:Null}"/>
             <TextBlock TextWrapping="Wrap" Text="Nimi" Margin="0,5,0,0" FontSize="14.667" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtName" TextWrapping="Wrap" FontSize="14.667" Margin="0,0,5,0">
                 <TextBox.Text>
                     <Binding Path="Name" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
-                            <validators:TextValidator Minimum="1" Maximum="15"/>
+                            <validators:TextValidator Minimum="1" Maximum="25"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -74,11 +72,13 @@
             <TextBox x:Name="txtDesc" TextWrapping="Wrap" FontSize="14.667" Margin="0,0,5,0">
                 <Binding Path="Description" UpdateSourceTrigger="LostFocus">
                     <Binding.ValidationRules>
-                        <validators:TextValidator Minimum="0" Maximum="15"/>
+                        <validators:TextValidator Minimum="0" Maximum="25"/>
                     </Binding.ValidationRules>
                 </Binding>
             </TextBox>
-            <Button x:Name="button" Content="Tallenna" Click="button_Click" HorizontalAlignment="Left" Margin="0,10,0,50" Foreground="White" FontSize="12"/>
+            <Button x:Name="button" Content="Tallenna" Click="button_Click" HorizontalAlignment="Left" Margin="0,10,0,0" Foreground="White" FontSize="12"/>
+            <ListBox x:Name="lbLists" SelectionChanged="lbLists_SelectionChanged" ItemsSource="{Binding}" ItemTemplate="{StaticResource ListnameTemplate}" Grid.Row="1" Margin="0,10,0,0" FontSize="24" Padding="0,0,5,0" Background="Transparent"/>
+
         </StackPanel>
 
     </Grid>

@@ -46,7 +46,7 @@
                 <Button x:Name="button" Content="Muokkaa" HorizontalAlignment="Left" Click="button_Click" Foreground="White"/>
                 <Button x:Name="button2" Content="Tulosta" HorizontalAlignment="Left" Click="button2_Click" Foreground="White" Margin="1,0,0,0"/>
                 <Button x:Name="button1" Content="Poista" HorizontalAlignment="Right" Click="button1_Click" Grid.Row="1" Margin="1,0,0,0" Foreground="White"/>
-                <ComboBox x:Name="cbLists" Width="120" ItemsSource="{Binding}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                <ComboBox x:Name="cbLists" ItemsSource="{Binding}" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="20,0,0,0" Width="150"/>
                 <Button x:Name="btnAdd" Content="Lisää listalle" Click="btnAdd_Click" HorizontalAlignment="Left" Foreground="White" Margin="1,0,0,0"/>
             </StackPanel>
 

@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -11,6 +11,7 @@ using KokkimestariWPF.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 
 namespace KokkimestariWPF.Logic
@@ -48,7 +49,7 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                int affected = AppEngine.InsertRecipe(recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.PicturePath);
+                int affected = AppEngine.InsertRecipe(recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.RelativePath);
                 if (affected > 0) return true;
                 else return false;
             }
@@ -67,7 +68,7 @@ namespace KokkimestariWPF.Logic
         {
             try
             {
-                int affected = AppEngine.UpdateRecipe(recipe.ID, recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.PicturePath);
+                int affected = AppEngine.UpdateRecipe(recipe.ID, recipe.Name, recipe.Instructions, recipe.Ingredients, recipe.Difficulty, recipe.Time, recipe.RelativePath);
                 if (affected > 0) return true;
                 else return false;
             }
@@ -129,7 +130,7 @@ namespace KokkimestariWPF.Logic
         {
             var recipes = GetAllRecipes();
             if (recipes.Count == 0)
-                return new Recipe(0, "Ei reseptejä!", "", "", 1, 15, @"/Images/placeholderimg.jpg");
+                return new Recipe(0, "Ei reseptejä!", "", "", 1, 15, @"Images/placeholderimg.jpg");
             else if (recipes.Count == 1)
                 return recipes.ElementAt(0);
             var r = new Random();
@@ -323,7 +324,23 @@ namespace KokkimestariWPF.Logic
                 return AppLogic.MinutesToString(Time);
             }
         }
-        public string PicturePath { get; set; }
+        //public string PicturePath { get; set; }
+        private string picturePath;
+
+        public string PicturePath
+        {
+            get { return Path.GetFullPath(picturePath); }
+            set { picturePath = value; }
+        }
+
+        public string RelativePath
+        {
+            get
+            {
+                return picturePath;
+            }
+        }
+
 
         public Recipe()
         {

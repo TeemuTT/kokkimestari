@@ -51,7 +51,7 @@
                 <TextBox.Text>
                     <Binding Path="Name" UpdateSourceTrigger="LostFocus">
                         <Binding.ValidationRules>
-                            <validators:TextValidator Minimum="1" Maximum="25"/>
+                            <validators:TextValidator Minimum="1" Maximum="35"/>
                         </Binding.ValidationRules>
                     </Binding>
                 </TextBox.Text>
@@ -73,7 +73,7 @@
             <Button x:Name="btnSave" Content="Tallenna" Click="btnSave_Click" HorizontalAlignment="Left" Margin="0,20,0,0" Foreground="White" FontSize="14.667"/>
 
         </StackPanel>
-        <Image x:Name="image" Source="{Binding Path=PicturePath}" Grid.Row="1" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
+        <Image x:Name="image" Source="{Binding Path=PicturePath, Mode=OneWay}" Grid.Row="1" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"/>
 
     </Grid>
 </UserControl>

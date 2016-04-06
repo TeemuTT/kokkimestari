@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 24/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -67,7 +67,12 @@ namespace KokkimestariWPF.UserControls
             if (lbLists.SelectedItem == null) return;
             try
             {
-                lbRecipes.DataContext = AppLogic.GetRecipesOfList((FavouriteList)lbLists.SelectedItem);
+                var recipes = AppLogic.GetRecipesOfList((FavouriteList)lbLists.SelectedItem);
+                if (recipes.Count == 0)
+                {
+                    recipes.Add(new Recipe(0, "Ei reseptejä!", "", "", 1, 0, @"Images/listhelp.png"));
+                }
+                lbRecipes.DataContext = recipes;
             }
             catch (Exception ex)
             {

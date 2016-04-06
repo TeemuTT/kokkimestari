@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -33,16 +33,12 @@ namespace KokkimestariWPF.DataAccess
         /// </summary>
         public static void InitializeDatabase()
         {
-            if (!File.Exists("kokkimestaridb.sqlite"))
+            if (!File.Exists("Storage/kokkimestaridb.sqlite"))
             {
                 string migrations = "";
-                using (var file = new StreamReader("migrations.txt"))
+                using (var file = new StreamReader("Storage/migrations.sql"))
                 {
-                    string line;
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        migrations += line;
-                    }
+                    migrations = file.ReadToEnd();
                 }
                 using (var db = MakeConnection())
                 {

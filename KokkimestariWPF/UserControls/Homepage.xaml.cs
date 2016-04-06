@@ -3,15 +3,17 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 22/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
 using KokkimestariWPF.Logic;
 using KokkimestariWPF.UserControls;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace KokkimestariWPF
 {
@@ -27,6 +29,8 @@ namespace KokkimestariWPF
             InitializeComponent();
 
             this.cc = cc;
+
+            image.Source = new BitmapImage(new Uri(Path.GetFullPath(@"Images/kokkimestari.png")));
 
             try
             {

@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 05/04/2016
+* Modified: 06/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -28,6 +28,7 @@ namespace KokkimestariWPF.UserControls
             this.cc = cc;
             grid.DataContext = recipe;
             cbLists.ItemsSource = AppLogic.GetFavouriteLists();
+            cbLists.SelectedIndex = 0;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

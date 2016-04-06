@@ -23,7 +23,7 @@
         </Style>
 
         <DataTemplate x:Key="BlockTemplate">
-            <Grid Background="#DA532C" Width="300" Height="200" Margin="5" Cursor="Hand">
+            <Grid Background="#DA532C" Width="350" Height="220" Margin="5" Cursor="Hand">
                 <Grid.BitmapEffect>
                     <DropShadowBitmapEffect ShadowDepth="2"/>
                 </Grid.BitmapEffect>
@@ -52,19 +52,19 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Background="#FFDA532C" Grid.RowSpan="2">
+        <StackPanel Background="#FFDA532C" Grid.RowSpan="2" Panel.ZIndex="1">
             <StackPanel.BitmapEffect>
                 <DropShadowBitmapEffect Direction="0" ShadowDepth="2" Opacity="0.9"/>
             </StackPanel.BitmapEffect>
             <Button x:Name="button" Content="Aloitus" Click="button_Click" FontSize="21.333" Foreground="White" Margin="0,40,0,0" Height="45" Width="200" FontWeight="Normal"/>
             <Button x:Name="button1" Content="Omat reseptit" Click="button1_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
             <Button x:Name="button4" Content="Luo resepti" Click="button4_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
-            <Button x:Name="button5" Content="Suosikit" FontSize="21.333" Foreground="White" Click="button5_Click" Height="45" Width="200" FontWeight="Normal"/>
+            <Button x:Name="button5" Content="Menút" FontSize="21.333" Foreground="White" Click="button5_Click" Height="45" Width="200" FontWeight="Normal"/>
             <Button x:Name="button3" Content="About" Click="button3_Click" FontSize="21.333" Foreground="White" Height="45" Width="200" FontWeight="Normal"/>
         </StackPanel>
 
         <ContentControl x:Name="contentControl" Grid.Column="1" Margin="0" Grid.Row="1"/>
-        <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Kokkimestari" Grid.Column="1" FontSize="32" Margin="0,0,0,30" HorizontalAlignment="Center"/>
+        <!--<TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Kokkimestari" Grid.Column="1" FontSize="32" Margin="0,0,0,30" HorizontalAlignment="Center"/>-->
 
     </Grid>
 </Window>
