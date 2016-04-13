@@ -7,7 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="640">
 
+    <UserControl.Resources>
+        <DataTemplate x:Key="contextMenuItem">
+            <TextBlock Text="{Binding Path=Name}" MouseLeftButtonDown="contextMenuItem_Click"/>
+        </DataTemplate>
+    </UserControl.Resources>
+
     <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -15,10 +25,14 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock TextWrapping="Wrap" Text="Omat reseptit" FontSize="24" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,5"/>
-        <ListBox x:Name="listBox" ItemsSource="{Binding}" ItemTemplate="{DynamicResource BlockTemplate}" Style="{DynamicResource ListBoxWrap}" FontSize="14.667" SelectionChanged="listBox_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Margin="0,10,0,50" Background="Transparent" BorderBrush="#00ABADB3"/>
-        <TextBlock TextWrapping="Wrap" Text="Hae nimellä" FontSize="16" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
-        <TextBox x:Name="textBox" TextWrapping="Wrap" TextChanged="textBox_TextChanged" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Margin="0,5,0,0" />
-
+        <TextBlock TextWrapping="Wrap" Text="Omat reseptit" FontSize="24" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="listBox" ItemsSource="{Binding}" ItemTemplate="{DynamicResource BlockTemplate}" Style="{DynamicResource ListBoxWrap}" FontSize="14.667" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Row="3" Margin="0,10,0,50" Background="Transparent" BorderBrush="#00ABADB3" MouseLeftButtonUp="listBox_MouseLeftButtonUp" Grid.ColumnSpan="2">
+            <ListBox.ContextMenu>
+                <ContextMenu Name="contextMenu" ItemsSource="{Binding}" ItemTemplate="{StaticResource contextMenuItem}"/>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <TextBlock TextWrapping="Wrap" Text="Hae nimellä" FontSize="16" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" Padding="0,0,0,5"/>
+        <TextBox x:Name="textBox" TextWrapping="Wrap" TextChanged="textBox_TextChanged" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Margin="0" Padding="0" />
+        <TextBlock Text="Voit lisätä reseptejä menúihin hiiren oikealla painikkeella. Voit luoda menúja vasemman reunan valikosta." TextWrapping="Wrap" Grid.Row="2" Grid.Column="1" FontSize="14.667" Padding="0,0,10,0"/>
     </Grid>
 </UserControl>

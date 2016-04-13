@@ -3,12 +3,13 @@
 * This file is part of the Kokkimestari project.
 *
 * Created: 22/03/2016
-* Modified: 05/04/2016
+* Modified: 07/04/2016
 * Author: Teemu Tuomela
 */
 
 using KokkimestariWPF.DataAccess;
 using KokkimestariWPF.UserControls;
+using MahApps.Metro.Controls;
 using System.Windows;
 
 namespace KokkimestariWPF
@@ -16,7 +17,7 @@ namespace KokkimestariWPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {

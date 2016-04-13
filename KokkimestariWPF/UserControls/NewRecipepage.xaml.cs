@@ -3,7 +3,7 @@
 * This file is part of the Kokkimestri project.
 *
 * Created: 23/03/2016
-* Modified: 06/04/2016
+* Modified: 13/04/2016
 * Author: Teemu Tuomela
 */
 
@@ -46,7 +46,7 @@ namespace KokkimestariWPF.UserControls
         {
             InitializeComponent();
 
-            txtTitle.Text = "Muokkaa reseptiä";
+            //txtTitle.Text = "Muokkaa reseptiä";
             this.recipe = recipe;
             grid.DataContext = recipe;
 
@@ -82,7 +82,7 @@ namespace KokkimestariWPF.UserControls
                 {
                     AppLogic.InsertRecipe(recipe);
                     MessageBox.Show("Resepti lisätty");
-                    recipe = new Recipe(0, "", "", "", 0, 15, @"Images/placeholderimg.jpg");
+                    recipe = new Recipe(0, "", "", "", 0, 15, @"Images/kokkimestari.jpg");
                     grid.DataContext = recipe;
                 }
                 else

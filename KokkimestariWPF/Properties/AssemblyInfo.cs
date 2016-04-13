@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("KokkimestariWPF")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Kokkimestari")]
+[assembly: AssemblyDescription("Reseptikirja")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("KokkimestariWPF")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyProduct("Kokkimestari")]
+[assembly: AssemblyCopyright("Copyright © Teemu Tuomela 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
