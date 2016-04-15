@@ -3,7 +3,7 @@ Kokkimestari on sovellus reseptien tallentamiseen ja selailuun.
 
 # Asennus
 Ohjelma on ladattavissa .zip-pakettina osoitteesta http://student.labranet.jamk.fi/~H8705/IIO11300/kokkimestari.zip. Pura paketti ja suorita sen jälkeen setup.exe. Ohjelma käynnistyy automaattisesti asennuksen jälkeen.
-## Järjestelmävaatimukset
+# Järjestelmävaatimukset
 Sovellus toimii windows käyttöjärjestelmällä. Sovellus vaatii toimiakseen .NET frameworkin version 4.5.2.
 
 # Toiminnallisuus
@@ -44,6 +44,7 @@ Aikaa sovelluksen toteuttamiseen kului yhteensä noin 35h. Aikaa kului karkeasti
 | Logiikka      | 8h      |
 | Dokumentointi | 2h      |
 
+Tarkemmin ajat on kirjattu omaan palveluuni osoitteessa [http://192.168.10.59/~teemu/api/project/9](http://192.168.10.59/~teemu/api/project/9).
 # Loppukaneetit
 Kaiken kaikkiaan projektin tekeminen eteni mallikkaasti. Suunniteltu toiminnallisuus toteutettiin. Suuria vaikeuksia ei ilmennyt. Kirjastojen (SQLite, mahApps.metro) lisäys nuget-pm:ää käyttäen oli vaivatonta ja käyttö onnistui kirjastojen dokumentaatioiden avulla helposti.
 
