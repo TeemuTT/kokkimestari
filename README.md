@@ -17,14 +17,14 @@ Tietokannasta karsittiin erilliset ainesosat, sillä niillä ei koettu olevan ta
 
 # Käyttöliittymä
 Käyttöliittymässä hyödynnettiin [mahapps.metro-kirjastoa](http://mahapps.com/), jolla saatiin käyttöliittymä windowsin metro-tyyliseksi.
-![Kuvakaappaus1](http://student.labranet.jamk.fi/~H8705/IIO11300/sc1.png)
-![Kuvakaappaus2](http://student.labranet.jamk.fi/~H8705/IIO11300/sc2.png)
-![Kuvakaappaus3](http://student.labranet.jamk.fi/~H8705/IIO11300/sc3.png)
+![Kuvakaappaus1](/readme_images/sc1.png?raw=true)
+![Kuvakaappaus2](/readme_images/sc2.png?raw=true)
+![Kuvakaappaus3](/readme_images/sc3.png?raw=true)
 
 # Tietovarastot ja tiedostot
 Sovellus käyttää tietokantana paikallista SQLite-tietokantaa. Ohjelma luo tietokannan käynnistyessään automaattisesti jos sitä ei ole olemassa. Tietokanta sisältää luonnin jälkeen joitakin reseptejä jo valmiiksi. Luontilauseet löytyvät [täältä](https://github.com/TeemuTT/kokkimestari/blob/master/KokkimestariWPF/Storage/migrations.sql).
 
-![db](http://student.labranet.jamk.fi/~H8705/IIO11300/db.png)
+![db](/readme_images/db.png?raw=true)
 
 Koska reseptien kuvat tallennetaan paikallisesti, ohjelman mukana on kuvat esimerkkiresepteille.
 
